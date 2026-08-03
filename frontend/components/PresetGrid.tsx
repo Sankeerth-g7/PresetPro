@@ -31,8 +31,8 @@ export default function PresetGrid({
         {presets.map(preset => {
           const isThumbnailUrl = preset.thumbnail_url.startsWith('/uploads/');
           const imgSrc = isThumbnailUrl 
-            ? `http://localhost:5000${preset.thumbnail_url}`
-            : preset.thumbnail_url;
+          ? `${process.env.NEXT_PUBLIC_API_URL}${preset.thumbnail_url}`
+          : preset.thumbnail_url;
 
           return (
             <div
