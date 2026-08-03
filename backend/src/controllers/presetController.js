@@ -2,9 +2,12 @@ const presetModel = require('../models/presetModel');
 
 const getAllPresets = async (req, res) => {
   try {
+    console.log('Fetching presets...');
     const presets = await presetModel.getAllPresets();
+    console.log('Presets found:', presets.length);
     res.json(presets);
   } catch (error) {
+    console.error('Error:', error);
     res.status(500).json({ error: error.message });
   }
 };
