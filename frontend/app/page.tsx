@@ -7,6 +7,9 @@ import ImageUploader from '@/components/ImageUploader';
 import BeforeAfter from '@/components/BeforeAfter';
 
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+
+
 interface Preset {
   id: number;
   name: string;
@@ -29,7 +32,7 @@ export default function Home() {
 
   const fetchPresets = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/presets');
+      const response = await fetch(`${API_URL}/api/presets`)
       const data = await response.json();
       setPresets(data);
     } catch (error) {
@@ -55,14 +58,14 @@ export default function Home() {
     const blob = await imageResponse.blob();
     formData.append('image', blob, 'image.jpg');
 
-    const response = await fetch('http://localhost:5000/api/edit/apply-preset', {
+    const response = await fetch(`${API_URL}/api/edit/apply-preset`, {
       method: 'POST',
       body: formData
     });
 
     const data = await response.json();
     setEditedFileName(data.fileName);
-    setEditedImage(`http://localhost:5000${data.downloadUrl}`);  // ADD THIS LINE
+    setEditedImage(`${API_URL}${data.downloadUrl}`);  // ADD THIS LINE
   } catch (error) {
     console.error('Failed to apply preset:', error);
   } finally {

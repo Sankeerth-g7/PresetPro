@@ -29,7 +29,7 @@ export default function BeforeAfter({ before, after, fileName }: BeforeAfterProp
   const handleDownload = async () => {
     if (!fileName) return;
     const link = document.createElement('a');
-    link.href = `http://localhost:5000/uploads/${fileName}`;
+    link.href = `${process.env.NEXT_PUBLIC_API_URL}/uploads/${fileName}`;
     link.download = fileName;
     link.click();
   };
